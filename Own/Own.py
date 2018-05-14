@@ -16,12 +16,9 @@ def encrypt(msg, key, k):
     msgNum = []
     for char in vernem:
         msgNum.append(ord(char))
-    print(msgNum)
-    print(msgNum)
     cipher = ""
     for i in range(0, len(msgNum)):
         cipher += chr(msgNum[i]+k)
-    print(cipher)
     cipher = Transposition.encMessage(k, cipher)
     return cipher
 
@@ -39,14 +36,12 @@ def decrypt(cipher, key, k):
     msgNum.clear()
     for char in message:
         msgNum.append(ord(char))
-    print(msgNum)
     message = ""
     for i in range(0, len(msgNum)):
         message += chr(msgNum[i])
-    print(message)
     vernOb = Vernam.VernamCipher(message ,key)
     vernem = vernOb.decryptVern(message, key)
-    print(vernem)
+    return vernem
 
 cipher = encrypt(plaintext, key, k)
-decrypt(cipher, key, k)
+print(decrypt(cipher, key, k))

@@ -1,0 +1,216 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface>
+  <object class="ttk.Frame" id="main">
+    <property name="height">200</property>
+    <property name="width">200</property>
+    <layout>
+      <property name="column">0</property>
+      <property name="propagate">True</property>
+      <property name="row">0</property>
+    </layout>
+    <child>
+      <object class="ttk.Frame" id="leftframe">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="propagate">True</property>
+          <property name="row">2</property>
+          <property name="sticky">w</property>
+        </layout>
+        <child>
+          <object class="tk.Text" id="plaintext">
+            <property name="cursor">arrow</property>
+            <property name="height">10</property>
+            <property name="text" translatable="yes">Insert Plaintext here</property>
+            <property name="width">50</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Message" id="Message_2">
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">1</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Frame" id="rightframe">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout>
+          <property name="column">2</property>
+          <property name="propagate">True</property>
+          <property name="row">2</property>
+          <property name="sticky">e</property>
+        </layout>
+        <child>
+          <object class="tk.Text" id="ciphertext">
+            <property name="height">10</property>
+            <property name="insertontime">0</property>
+            <property name="takefocus">false</property>
+            <property name="width">50</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+              <property name="sticky">e</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Button" id="Button_1">
+            <property name="anchor">n</property>
+            <property name="command">on_save_button</property>
+            <property name="cursor">arrow</property>
+            <property name="font">TkDefaultFont</property>
+            <property name="text" translatable="yes">save</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">1</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Frame" id="middelframe">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout>
+          <property name="column">1</property>
+          <property name="propagate">True</property>
+          <property name="row">2</property>
+          <property name="sticky">e</property>
+        </layout>
+        <child>
+          <object class="ttk.Button" id="button1">
+            <property name="command">on_button</property>
+            <property name="text" translatable="yes">Encrypt</property>
+            <property name="textvariable">string:buttonText</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Frame" id="topframe">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="propagate">True</property>
+          <property name="row">0</property>
+          <property name="sticky">w</property>
+        </layout>
+        <child>
+          <object class="tk.Label" id="Label_2">
+            <property name="cursor">based_arrow_down</property>
+            <property name="padx">0</property>
+            <property name="text" translatable="yes">Insert key</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Text" id="Text_2">
+            <property name="cursor">arrow</property>
+            <property name="font">TkDefaultFont</property>
+            <property name="height">1</property>
+            <property name="insertborderwidth">0</property>
+            <property name="pady">0</property>
+            <property name="width">10</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="ok">
+            <property name="command">on_ok_button</property>
+            <property name="text" translatable="yes">Ok</property>
+            <layout>
+              <property name="column">3</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="tk.Menu" id="mainmenu">
+    <child>
+      <object class="tk.Menuitem.Submenu" id="Submenu_1">
+        <property name="label" translatable="yes">File</property>
+        <child>
+          <object class="tk.Menuitem.Submenu" id="Submenu_5">
+            <property name="label" translatable="yes">Open</property>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Menuitem.Submenu" id="Submenu_7">
+            <property name="label" translatable="yes">save</property>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Menuitem.Submenu" id="Submenu_8">
+            <property name="label" translatable="yes">close</property>
+            <property name="takefocus">false</property>
+            <property name="underline">0</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Menuitem.Submenu" id="Submenu_2">
+        <property name="label" translatable="yes">Algorithm</property>
+        <child>
+          <object class="tk.Menuitem.Radiobutton" id="Radiobutton_1">
+            <property name="command_id_arg">false</property>
+            <property name="label" translatable="yes">Vernem</property>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Menuitem.Radiobutton" id="Radiobutton_2">
+            <property name="command_id_arg">false</property>
+            <property name="label" translatable="yes">Vigenere</property>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Menuitem.Radiobutton" id="Radiobutton_3">
+            <property name="command_id_arg">false</property>
+            <property name="label" translatable="yes">Transposition</property>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Menuitem.Radiobutton" id="Radiobutton_4">
+            <property name="command_id_arg">false</property>
+            <property name="label" translatable="yes">Own algorithm</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
