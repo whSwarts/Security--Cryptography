@@ -2,49 +2,51 @@ import numpy as np
 from Transposition import Transposition
 from Vigenere import Vigenere
 from Vernam import Vernam
+import random
 
 key = "123abc"
-plaintext = "Hello world!"
+plaintext = "hello world"
+k = 0
+for char in key:
+    k += ord(char)
 
-def encrypt(msg, key):
+def encrypt(msg, key, k):
     vernOb = Vernam.VernamCipher(msg, key)
     vernem = vernOb.giveVernam(msg, key)
-
-    k = 0
-    for char in key:
-        k += ord(char)
-    np.random.seed(k)
-
     msgNum = []
     for char in vernem:
         msgNum.append(ord(char))
     print(msgNum)
-    np.random.shuffle(msgNum)
     print(msgNum)
     cipher = ""
     for i in range(0, len(msgNum)):
         cipher += chr(msgNum[i]+k)
     print(cipher)
+    cipher = Transposition.encMessage(k, cipher)
     return cipher
 
-def decrypt(cipher, key):
-    vernOb = Vernam.VernamCipher(cipher, key)
-    vernem = vernOb.giveVernam(cipher, key)
-    k = 0
-    for char in key:
-        k += ord(char)
-    np.random.seed(k)
 
-    ciphNum = []
+def decrypt(cipher, key, k):
+    msgNum = []
+    message = ""
+    cipher = Transposition.decMessage(k, cipher)
     for char in cipher:
-        ciphNum.append(ord(char))
-    print(ciphNum)
-    np.random.shuffle(ciphNum)
-    print(ciphNum)
-    cipher = ""
-    for i in range(0, len(ciphNum)):
-        cipher += chr(ciphNum[i] - k)
-    print(cipher)
+        msgNum.append(ord(char))
 
-cipher = encrypt(plaintext, key)
-decrypt(cipher, key)
+    for i in range(0, len(msgNum)):
+        message += chr(msgNum[i] - k)
+
+    msgNum.clear()
+    for char in message:
+        msgNum.append(ord(char))
+    print(msgNum)
+    message = ""
+    for i in range(0, len(msgNum)):
+        message += chr(msgNum[i])
+    print(message)
+    vernOb = Vernam.VernamCipher(message ,key)
+    vernem = vernOb.decryptVern(message, key)
+    print(vernem)
+
+cipher = encrypt(plaintext, key, k)
+decrypt(cipher, key, k)
