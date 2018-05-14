@@ -1,7 +1,5 @@
 #!/bin/python
-"""
-Hello World, but with more meat.
-"""
+
 
 import wx
 import os

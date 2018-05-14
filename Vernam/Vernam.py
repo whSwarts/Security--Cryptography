@@ -48,22 +48,23 @@ class VernamCipher:
         self.cipherText=""
         return VernamCipher.giveVernam(self, text=ciphertext, key=key)
 
-plaintext = input("insert plaintext: ")
-ciphertext = ""
-choice = input("own or random key? o/r: ")
-key = ""
-if choice == "o":
-    key = input("insert own key: ")
-    vernobj = VernamCipher(plaintext, key)
-    ciphertext = vernobj.giveVernam(plaintext, key)
-    vernobj.toString()
-    print("\nCiphertext decrypted: " + vernobj.decryptVern(ciphertext, key))
+def main():
+    plaintext = input("insert plaintext: ")
+    ciphertext = ""
+    choice = input("own or random key? o/r: ")
+    key = ""
+    if choice == "o":
+        key = input("insert own key: ")
+        vernobj = VernamCipher(plaintext, key)
+        ciphertext = vernobj.giveVernam(plaintext, key)
+        vernobj.toString()
+        print("\nCiphertext decrypted: " + vernobj.decryptVern(ciphertext, key))
 
-else:
-    vernobj = VernamCipher(text=plaintext)
-    file = open("key.txt", "r")
-    key = file.readline()
-    file.close()
-    ciphertext = vernobj.giveVernam(text=plaintext, key=key)
-    vernobj.toString()
-    print("\nCiphertext decrypted: " + vernobj.decryptVern(ciphertext, key))
+    else:
+        vernobj = VernamCipher(text=plaintext)
+        file = open("key.txt", "r")
+        key = file.readline()
+        file.close()
+        ciphertext = vernobj.giveVernam(text=plaintext, key=key)
+        vernobj.toString()
+        print("\nCiphertext decrypted: " + vernobj.decryptVern(ciphertext, key))
