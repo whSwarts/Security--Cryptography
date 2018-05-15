@@ -20,10 +20,13 @@
         </layout>
         <child>
           <object class="tk.Text" id="plaintext">
-            <property name="cursor">size_ne_swsize_ns</property>
+            <property name="cursor">arrow</property>
             <property name="exportselection">true</property>
             <property name="font">TkDefaultFont</property>
             <property name="height">10</property>
+            <property name="insertofftime">0</property>
+            <property name="relief">flat</property>
+            <property name="takefocus">false</property>
             <property name="text" translatable="yes">Insert Plaintext here</property>
             <property name="width">50</property>
             <layout>
@@ -98,7 +101,7 @@
         </layout>
         <child>
           <object class="ttk.Button" id="encrypt_btn">
-            <property name="command">on_button</property>
+            <property name="command">on_encrypt</property>
             <property name="text" translatable="yes">Encrypt</property>
             <property name="textvariable">string:buttonText</property>
             <layout>

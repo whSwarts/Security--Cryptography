@@ -37,3 +37,4 @@ def messTranslation(key, message, func):
         else:
             translation.append(sym)
     return ''.join(translation)
+

@@ -10,7 +10,7 @@ k = 0
 for char in key:
     k += ord(char)
 
-def encrypt(msg, key, k):
+def encrypt(msg, key):
     vernOb = Vernam.VernamCipher(msg, key)
     vernem = vernOb.giveVernam(msg, key)
     msgNum = []
@@ -23,7 +23,7 @@ def encrypt(msg, key, k):
     return cipher
 
 
-def decrypt(cipher, key, k):
+def decrypt(cipher, key):
     msgNum = []
     message = ""
     cipher = Transposition_old_.decMessage(k, cipher)
@@ -43,5 +43,5 @@ def decrypt(cipher, key, k):
     vernem = vernOb.decryptVern(message, key)
     return vernem
 
-cipher = encrypt(plaintext, key, k)
-print(decrypt(cipher, key, k))
+cipher = encrypt(plaintext, key)
+print(decrypt(cipher, key))
