@@ -20,7 +20,9 @@
         </layout>
         <child>
           <object class="tk.Text" id="plaintext">
-            <property name="cursor">arrow</property>
+            <property name="cursor">size_ne_swsize_ns</property>
+            <property name="exportselection">true</property>
+            <property name="font">TkDefaultFont</property>
             <property name="height">10</property>
             <property name="text" translatable="yes">Insert Plaintext here</property>
             <property name="width">50</property>
@@ -32,7 +34,8 @@
           </object>
         </child>
         <child>
-          <object class="tk.Message" id="Message_2">
+          <object class="tk.Message" id="plaintext_label">
+            <property name="cursor">arrow</property>
             <layout>
               <property name="column">0</property>
               <property name="propagate">True</property>
@@ -67,7 +70,7 @@
           </object>
         </child>
         <child>
-          <object class="tk.Button" id="Button_1">
+          <object class="tk.Button" id="save_btn">
             <property name="anchor">n</property>
             <property name="command">on_save_button</property>
             <property name="cursor">arrow</property>
@@ -94,7 +97,7 @@
           <property name="sticky">e</property>
         </layout>
         <child>
-          <object class="ttk.Button" id="button1">
+          <object class="ttk.Button" id="encrypt_btn">
             <property name="command">on_button</property>
             <property name="text" translatable="yes">Encrypt</property>
             <property name="textvariable">string:buttonText</property>
@@ -102,6 +105,16 @@
               <property name="column">0</property>
               <property name="propagate">True</property>
               <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="text_mode_button">
+            <property name="text" translatable="yes">Text Mode</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">1</property>
             </layout>
           </object>
         </child>
@@ -131,22 +144,6 @@
           </object>
         </child>
         <child>
-          <object class="tk.Text" id="Text_2">
-            <property name="cursor">arrow</property>
-            <property name="font">TkDefaultFont</property>
-            <property name="height">1</property>
-            <property name="insertborderwidth">0</property>
-            <property name="pady">0</property>
-            <property name="width">10</property>
-            <layout>
-              <property name="column">1</property>
-              <property name="propagate">True</property>
-              <property name="row">0</property>
-              <property name="sticky">w</property>
-            </layout>
-          </object>
-        </child>
-        <child>
           <object class="ttk.Button" id="ok">
             <property name="command">on_ok_button</property>
             <property name="text" translatable="yes">Ok</property>
@@ -157,57 +154,91 @@
             </layout>
           </object>
         </child>
+        <child>
+          <object class="ttk.Entry" id="key_entry">
+            <property name="textvariable">string:key</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
       </object>
     </child>
   </object>
   <object class="tk.Menu" id="mainmenu">
     <child>
-      <object class="tk.Menuitem.Submenu" id="Submenu_1">
-        <property name="label" translatable="yes">File</property>
-        <child>
-          <object class="tk.Menuitem.Submenu" id="Submenu_5">
-            <property name="label" translatable="yes">Open</property>
-          </object>
-        </child>
-        <child>
-          <object class="tk.Menuitem.Submenu" id="Submenu_7">
-            <property name="label" translatable="yes">save</property>
-          </object>
-        </child>
-        <child>
-          <object class="tk.Menuitem.Submenu" id="Submenu_8">
-            <property name="label" translatable="yes">close</property>
-            <property name="takefocus">false</property>
-            <property name="underline">0</property>
-          </object>
-        </child>
-      </object>
-    </child>
-    <child>
-      <object class="tk.Menuitem.Submenu" id="Submenu_2">
+      <object class="tk.Menuitem.Submenu" id="menu_algorithms">
         <property name="label" translatable="yes">Algorithm</property>
         <child>
-          <object class="tk.Menuitem.Radiobutton" id="Radiobutton_1">
+          <object class="tk.Menuitem.Radiobutton" id="vernem_btn">
+            <property name="command">on_vernem</property>
             <property name="command_id_arg">false</property>
             <property name="label" translatable="yes">Vernem</property>
           </object>
         </child>
         <child>
-          <object class="tk.Menuitem.Radiobutton" id="Radiobutton_2">
+          <object class="tk.Menuitem.Radiobutton" id="vig_btn">
+            <property name="command">on_vigenere</property>
             <property name="command_id_arg">false</property>
             <property name="label" translatable="yes">Vigenere</property>
           </object>
         </child>
         <child>
-          <object class="tk.Menuitem.Radiobutton" id="Radiobutton_3">
+          <object class="tk.Menuitem.Radiobutton" id="trans_btn">
+            <property name="command">on_transposition</property>
             <property name="command_id_arg">false</property>
             <property name="label" translatable="yes">Transposition</property>
           </object>
         </child>
         <child>
-          <object class="tk.Menuitem.Radiobutton" id="Radiobutton_4">
+          <object class="tk.Menuitem.Radiobutton" id="own_btn">
+            <property name="command">on_own</property>
             <property name="command_id_arg">false</property>
             <property name="label" translatable="yes">Own algorithm</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Menuitem.Submenu" id="menu_file">
+        <property name="cursor">based_arrow_down</property>
+        <property name="font">TkFixedFont</property>
+        <property name="label" translatable="yes">File</property>
+        <child>
+          <object class="tk.Menuitem.Command" id="file_open">
+            <property name="command">on_open_file</property>
+            <property name="command_id_arg">false</property>
+            <property name="label" translatable="yes">open</property>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Menuitem.Command" id="file_save">
+            <property name="command">on_save_file</property>
+            <property name="command_id_arg">false</property>
+            <property name="label" translatable="yes">save</property>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Menuitem.Command" id="app_close">
+            <property name="command">on_close_program</property>
+            <property name="command_id_arg">false</property>
+            <property name="label" translatable="yes">close</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Menuitem.Submenu" id="menu_import">
+        <property name="cursor">arrow</property>
+        <property name="font">TkDefaultFont</property>
+        <property name="label" translatable="yes">Import</property>
+        <child>
+          <object class="tk.Menuitem.Command" id="import_image">
+            <property name="command">on_import_imgae</property>
+            <property name="command_id_arg">false</property>
+            <property name="label" translatable="yes">Image</property>
           </object>
         </child>
       </object>

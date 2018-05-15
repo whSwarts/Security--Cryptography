@@ -1,5 +1,5 @@
 import numpy as np
-from Transposition import Transposition
+from Transposition import Transposition_old_
 from Vigenere import Vigenere
 from Vernam import Vernam
 import random
@@ -19,14 +19,14 @@ def encrypt(msg, key, k):
     cipher = ""
     for i in range(0, len(msgNum)):
         cipher += chr(msgNum[i]+k)
-    cipher = Transposition.encMessage(k, cipher)
+    cipher = Transposition_old_.encMessage(k, cipher)
     return cipher
 
 
 def decrypt(cipher, key, k):
     msgNum = []
     message = ""
-    cipher = Transposition.decMessage(k, cipher)
+    cipher = Transposition_old_.decMessage(k, cipher)
     for char in cipher:
         msgNum.append(ord(char))
 

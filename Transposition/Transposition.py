@@ -1,12 +1,15 @@
 import math
 
+#decryption method
 def decMessage(key, cText):
-    
+    #caluculate amount of columns
     columns = int(math.ceil(len(cText) / key))
+    #define an array with num of columns
     mess = [''] * columns
+    #number of spaces in array
     boxes = columns * key
-    shaded = boxes - len(cText)
 
+    shaded = boxes - len(cText)
     col = 0
     row = 0
 
@@ -17,16 +20,10 @@ def decMessage(key, cText):
         if (col == columns) or (col == columns - 1 and row >= key - shaded):
             col = 0
             row += 1
-                
+            
     return ''.join(mess)
 
+#encryption method
 def encMessage(key, mess):
     cText = [''] * key
-
-    for column in range(key):
-        pointer = column
-
-        while pointer < len(mess):
-            cText[column] += mess[pointer]
-            pointer += key
-    return ''.join(cText)
+    
