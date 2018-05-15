@@ -1,6 +1,6 @@
 from PIL import Image
 import numpy as np
-import Vigenere as vig
+from Vigenere import Vigenere as vig
 import Transposition as trans
 
 def convertImageToString(img):
@@ -12,9 +12,9 @@ def convertImageToString(img):
 
     return mess
 
-def convertStringToImage(string):
+def convertStringToImage(string, lenght, breadth):
     arr = np.fromstring(string, dtype=int, sep=' ')
-    decArr = np.reshape(arr,(512, 512, 3))
+    decArr = np.reshape(arr,(lenght, breadth, 3))
     rescaled = (255.0 / decArr.max() * (decArr - decArr.min())).astype(np.uint8)
     
     return rescaled
@@ -23,7 +23,9 @@ def convertStringToImage(string):
 ## Also in GUI: Check for file extension and use as file extension for decryption
 ##              Check for width and height of image to use in decrypted format
 
-im = Image.open('image.jpg')
+im = Image.open('pic.jpeg')
+length = np.array(im, dtype=int).shape[0]
+breadth = np.array(im, dtype=int).shape[1]
 text = convertImageToString(im)
 
 enc = vig.encryptMess("atl034", text)
@@ -33,7 +35,7 @@ with open('enc.txt', 'w') as file:
 
 dec = vig.decryptMess("atl034", enc)
 
-arr = convertStringToImage(dec)
+arr = convertStringToImage(dec, length, breadth)
 
 im = Image.fromarray(arr)
 im.save('out.jpg')
