@@ -2,6 +2,10 @@ import math
 
 #decryption method
 def decMessage(key, cText):
+
+    if(key > len(cText)):
+        key = round(len(cText) - (len(cText)/2))
+
     #caluculate amount of columns
     columns = int(math.ceil(len(cText) / key))
     #define an array with num of columns
@@ -27,6 +31,8 @@ def decMessage(key, cText):
 
 #encryption method
 def encMessage(key, mess):
+    if (key > len(mess)):
+        key = round(len(mess) - (len(mess) / 2))
     #define an array so that there is a column per charcter in key
     cText = [''] * key
     #Define key index

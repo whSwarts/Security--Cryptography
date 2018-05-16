@@ -60,8 +60,6 @@ class MyApplication(pygubu.TkApplication):
             self.cipher = vernO.giveVernam(self.plaintext, self.key)
 
         elif (self.transposition == 1):
-
-            k =0
             for char in self.key:
                 self.k += ord(char)
             self.cipher = transp.encMessage(self.k, self.plaintext)
@@ -127,7 +125,13 @@ class MyApplication(pygubu.TkApplication):
 
     def on_import_image(self):
         self.file_path = filedialog.askopenfilename(title = "select an image to open")
+
         self.plaintext = conv.convertFileToString(self.file_path)
+
+        text_widget = self.builder.get_object('plaintext', self.master)
+        text_widget.delete("1.0", tk.END)
+        text_widget.insert(tk.END, self.plaintext)
+
         if (self.vigenere == 1):
             self.cipher = v.encryptMess(key=self.key, message=self.plaintext)
             # self.cipher = str(Vigenere.encryptMess(key=self.key, message=self.plaintext))
@@ -152,7 +156,12 @@ class MyApplication(pygubu.TkApplication):
             with open('enc.enc', 'w') as file:
                 file.write(str(self.cipher))
             self.plaintext = self.on_decrypt()
-        conv.convertStringToFile(self.plaintext, "jpg")
+
+        printwidget = self.builder.get_object('ciphertext', self.master)
+        printwidget.delete("1.0", tk.END)
+        printwidget.insert(tk.END, self.cipher)
+
+        conv.convertStringToFile(self.plaintext, "jpg", self.file_path)
 
     def on_decrypt(self):
         print("clicked")
