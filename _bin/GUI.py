@@ -1,6 +1,6 @@
 import tkinter as tk
 import pygubu
-from bin import Own as o, Transposition as transp, Vernam, Vigenere as v
+import Own as o, Transposition as transp, Vernam, Vigenere as v, convert_bytes as conv
 from tkinter import filedialog
 from PIL import ImageTk, Image
 
@@ -33,8 +33,7 @@ class MyApplication(pygubu.TkApplication):
         self.mainmenu = menu = builder.get_object('mainmenu', self.master)
         self.set_menu(menu)
 
-        modebtn = builder.get_object('text_mode_button', self.master)
-        modebtn.configure(state=tk.DISABLED)
+
         # init callbacks
         builder.connect_callbacks(self)
         # self.master.protocol("WM_DELETE_WINDOW", self.on_close_program())
@@ -46,18 +45,19 @@ class MyApplication(pygubu.TkApplication):
 
     def on_encrypt(self):
         text_widget = self.builder.get_object('plaintext', self.master)
-        plaintext = text_widget.get("1.0", tk.END)
+        self.plaintext = text_widget.get("1.0", tk.END)
+        print(self.plaintext + "\t" + self.key)
         self.cipher = ""
 
         if (self.vigenere == 1):
-            self.cipher = v.encryptMess(key=self.key, message=plaintext)
+            self.cipher = v.encryptMess(key=self.key, message=self.plaintext)
             # self.cipher = str(Vigenere.encryptMess(key=self.key, message=self.plaintext))
             print(self.cipher)
             print(len(self.cipher))
 
         if(self.vernem == 1):
-            vernO = Vernam.VernamCipher(plaintext, self.key)
-            self.cipher = vernO.giveVernam(plaintext, self.key)
+            vernO = Vernam.VernamCipher(self.plaintext, self.key)
+            self.cipher = vernO.giveVernam(self.plaintext, self.key)
 
         elif (self.transposition == 1):
 
@@ -127,13 +127,64 @@ class MyApplication(pygubu.TkApplication):
 
     def on_import_image(self):
         self.file_path = filedialog.askopenfilename(title = "select an image to open")
-        self.secondwindow = self.builder.get_object('imageframe', self.master)
-        imageB = self.builder.get_object('image',self.master)
-        im = Image.open(self.file_path)
-        ph = ImageTk.PhotoImage(im)
-        imageB.config(image=ph)
+        self.plaintext = conv.convertFileToString(self.file_path)
+        if (self.vigenere == 1):
+            self.cipher = v.encryptMess(key=self.key, message=self.plaintext)
+            # self.cipher = str(Vigenere.encryptMess(key=self.key, message=self.plaintext))
+            print(self.cipher)
+            print(len(self.cipher))
 
+        if(self.vernem == 1):
+            vernO = Vernam.VernamCipher(self.plaintext, self.key)
+            self.cipher = vernO.giveVernam(self.plaintext, self.key)
 
+        elif (self.transposition == 1):
+
+            k =0
+            for char in self.key:
+                self.k += ord(char)
+            self.cipher = transp.encMessage(self.k, self.plaintext)
+            print("run")
+
+        elif (self.own == 1):
+            print("run")
+            self.cipher = o.encrypt(self.plaintext, self.key)
+            with open('enc.enc', 'w') as file:
+                file.write(str(self.cipher))
+            self.plaintext = self.on_decrypt()
+        conv.convertStringToFile(self.plaintext, "jpg")
+
+    def on_decrypt(self):
+        print("clicked")
+        if (self.vigenere == 1):
+            self.plaintext = v.decryptMess(key=self.key, message=self.cipher)
+            # self.cipher = str(Vigenere.encryptMess(key=self.key, message=self.plaintext))
+            print(self.cipher)
+            print(len(self.cipher))
+            print(self.plaintext)
+
+        if(self.vernem == 1):
+            vernO = Vernam.VernamCipher(self.cipher, self.key)
+            self.plaintext = vernO.decryptVern(self.plaintext, self.key)
+            print(self.plaintext)
+
+        elif (self.transposition == 1):
+
+            k =0
+            for char in self.key:
+                self.k += ord(char)
+            self.plaintext = transp.decMessage(self.k, self.cipher)
+            print("run")
+            print(self.plaintext)
+
+        elif (self.own == 1):
+            print("run")
+            self.plaintext = o.decrypt(self.cipher, self.key)
+            print(self.plaintext)
+
+        instxt = self.builder.get_object('plaintext', self.master)
+        instxt.delete("1.0", tk.END)
+        instxt.insert(tk.END, self.plaintext)
 
 if __name__ == '__main__':
     root = tk.Tk()

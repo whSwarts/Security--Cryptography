@@ -1,4 +1,4 @@
-from bin import Transposition as trans
+import Transposition as trans
 import codecs
 
 def convertFileToString(file):

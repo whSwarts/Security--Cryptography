@@ -1,4 +1,4 @@
-from bin import Transposition, Vernam
+import Transposition, Vernam
 
 key = "123abc"
 plaintext = "hello world"
