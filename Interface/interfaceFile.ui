@@ -102,7 +102,7 @@
         <child>
           <object class="ttk.Button" id="encrypt_btn">
             <property name="command">on_encrypt</property>
-            <property name="text" translatable="yes">Encrypt</property>
+            <property name="text" translatable="yes">Encrypt/decrypt</property>
             <property name="textvariable">string:buttonText</property>
             <layout>
               <property name="column">0</property>
@@ -239,11 +239,54 @@
         <property name="label" translatable="yes">Import</property>
         <child>
           <object class="tk.Menuitem.Command" id="import_image">
-            <property name="command">on_import_imgae</property>
+            <property name="command">on_import_image</property>
             <property name="command_id_arg">false</property>
             <property name="label" translatable="yes">Image</property>
           </object>
         </child>
+      </object>
+    </child>
+  </object>
+  <object class="ttk.Frame" id="imageframe">
+    <property name="borderwidth">200</property>
+    <property name="height">200</property>
+    <property name="takefocus">true</property>
+    <property name="width">200</property>
+    <layout>
+      <property name="column">0</property>
+      <property name="propagate">True</property>
+      <property name="row">0</property>
+    </layout>
+    <child>
+      <object class="ttk.Button" id="Encrypt">
+        <property name="command">onencryptimage</property>
+        <property name="text" translatable="yes">Encrypt</property>
+        <layout>
+          <property name="column">1</property>
+          <property name="propagate">True</property>
+          <property name="row">0</property>
+          <property name="sticky">e</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Button" id="cancel">
+        <property name="command">oncancelIm</property>
+        <property name="text" translatable="yes">Cancel</property>
+        <layout>
+          <property name="column">1</property>
+          <property name="propagate">True</property>
+          <property name="row">1</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="tk.Canvas" id="canvas">
+        <layout>
+          <property name="column">0</property>
+          <property name="propagate">True</property>
+          <property name="row">2</property>
+        </layout>
       </object>
     </child>
   </object>
